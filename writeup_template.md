@@ -37,11 +37,6 @@ The goals / steps of this project are the following:
 [image20]: ./examples/output_25_2.png "Grayscaling"
 [image21]: ./examples/output_25_3.png "Grayscaling"
 [image22]: ./examples/output_25_4.png "Grayscaling"
-[image23]: ./web_image/1_big.jpg "Grayscaling"
-[image24]: ./web_image/11_big.jpg "Grayscaling"
-[image26]: ./web_image/24_big.jpg "Grayscaling"
-[image27]: ./web_image/25_big.jpg "Grayscaling"
-[image28]: ./web_image/39_big.jpg "Grayscaling"
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
 
@@ -78,17 +73,19 @@ It is a bar chart showing how the data is distributed between the various classe
 
 As a first step, I decided to convert the images to grayscale because color is not really required to identify a traffic sign.
 
-Here is an example of a traffic sign image before and after grayscaling.
-
 After Greyscaling I noticed that some of the examples were too dark to see and greyscaling them was making them worse. 
 I used OpenCV's CLAHE (Contrast Limited Adaptive Histogram Equalization) function after greyscaling to improve the overall contrast.
 
-
-![alt text][image2]
-
-
-
-![alt text][image3]
+![alt text][image6]
+![alt text][image7]
+![alt text][image8]
+![alt text][image9]
+![alt text][image10]
+![alt text][image11]
+![alt text][image12]
+![alt text][image13]
+![alt text][image14]
+![alt text][image15]
 
 The test images are easier to identify after preprocessing. The edges and shape of signs are more pronounced. 
 
@@ -131,20 +128,23 @@ My final model results were:
 
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
-  The First architecture i used was the LeNet without any changes. I chose it because it was a good starting off point to experiment with hyper parameters and adding/removing layers.
+
+  The First architecture i used was the LeNet without any changes. I chose it because it was a good starting off point to experiment  with hyper parameters and adding/removing layers.
 * What were some problems with the initial architecture?
+
   The initial model didn't improve much when running for more than 30 epocs. It was much faster to train but the accuracy was stuck below 90%. 
 
 * How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
 
-I was getting low accuracy on both traning and validation. So I had to make the model more complex but instead of adding more layers I decided to make the convolution layers deeper. The first convolution layer in my model outputes 26x26x30 whereas the first convolution layer in LeNet's output had a depth of only 6. Similaryl the second convolution bumps the depth to 60.
+  I was getting low accuracy on both traning and validation. So I had to make the model more complex but instead of adding more layers I decided to make the convolution layers deeper. The first convolution layer in my model outputes 26x26x30 whereas the first convolution layer in LeNet's output had a depth of only 6. Similaryl the second convolution bumps the depth to 60.
 
 * Which parameters were tuned? How were they adjusted and why?
-Almost all prarmeters were tuned. See point 3 for the reasons.
+
+  Almost all prarmeters were tuned. See point 3 for the reasons.
 
 * What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
 
-I added dropout just after flattening the convolution layer with a keep probablity of 0.7. The idea behind this is that the second copnvolution layer would look for features in the image like circles and squares which can be used by the fully connected layer to classify the sign.So, adding the dropout will force the network to learn to associate more features to a traffic sign and not rely on just a few.
+  I added dropout just after flattening the convolution layer with a keep probablity of 0.7. The idea behind this is that the second  copnvolution layer would look for features in the image like circles and squares which can be used by the fully connected layer to classify the sign.So, adding the dropout will force the network to learn to associate more features to a traffic sign and not rely on just a few.
  
 
 ### Test a Model on New Images
@@ -153,8 +153,8 @@ I added dropout just after flattening the convolution layer with a keep probabli
 
 Here are five German traffic signs that I found on the web:
 
-![alt text][image23] ![alt text][image24] ![alt text][image26] 
-![alt text][image27] ![alt text][image28]
+![alt text][image18] ![alt text][image19] ![alt text][image20] 
+![alt text][image21] ![alt text][image22]
 
 The first image might be difficult to classify because of the background of buildings and trees
 In the second image a small part of another sign bellow it is visible which migh make it difficult to classify.
@@ -177,23 +177,12 @@ Here are the results of the prediction:
 
 The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This is much lower than the accuracy on the test set of 94.4%.
 
+It did not predict the sign "Road Narrows on Right"	correctly but if you look at the bar chart the 2nd most probable prediction for that sign was the correct one i.e "Road Narrows on Right".
+
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
-
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
-
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
-
-
-For the second image ... 
-
+The code for making predictions on my final model is located in the 14th cell of the Ipython notebook.
+The 15th cell contains the code to plot bar the chart which are displayed above.
 
 
 
