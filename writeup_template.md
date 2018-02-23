@@ -63,7 +63,7 @@ I used the pandas library to calculate summary statistics of the traffic signs d
 #### 2. Include an exploratory visualization of the dataset.
 
 Here is an exploratory visualization of the data set. 
-It is a bar chart showing how the data is distributed between the various classes and the number of images for each class in traning, validation and test dataset.
+It is a bar chart showing how the data is distributed between the various classes and the number of images for each class in training, validation and test dataset.
 
 ![alt text][image1]
 
@@ -73,9 +73,10 @@ It is a bar chart showing how the data is distributed between the various classe
 
 As a first step, I decided to convert the images to grayscale because color is not really required to identify a traffic sign.
 
-After Greyscaling I noticed that some of the examples were too dark to see and greyscaling them was making them worse. 
+After Grayscaling I noticed that some of the examples were too dark to see and greyscaling them was making them worse. 
 I used OpenCV's CLAHE (Contrast Limited Adaptive Histogram Equalization) function after greyscaling to improve the overall contrast.
 
+![alt text][image5]
 ![alt text][image6]
 ![alt text][image7]
 ![alt text][image8]
@@ -96,28 +97,28 @@ My final model consisted of the following layers:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x1 RGB image   							|
+| Input         		| 32x32x1 Grayscale image 							|
 | Convolution 7x7     	| 1x1 stride, valid padding, outputs 26x26x30 	|
 | RELU					|												|
-| Max pooling	      	| Kernal 2x2 ,stride - 2 ,outputs 13x13x30 				|
+| Max pooling	      	| Kernel 2x2, stride - 2, outputs 13x13x30 				|
 | Convolution 5x5     	| 1x1 stride, valid padding, outputs 9x9x60 	|
 | RELU					|												|
-| Max pooling	      	| Kernal 2x2 ,stride - 2 ,outputs 4x4x60 				|
+| Max pooling	      	| Kernel 2x2, stride - 2, outputs 4x4x60 				|
 |Flatten|           									|
-| Dropout		|       Keep prob 0.7  								|
-| Fully connected 				| input 960 , output 43       									|
+| Dropout		|       Keep prob 0.7 								|
+| Fully connected 				| input 960, output 43       									|
 
 
 
-#### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+#### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyper parameters such as learning rate.
 
 To train the model, I used the following hyper parameter
 
-* Batch size - 512 : I was traning on AWS Instance which had sufficient memory I increased the batch size.
-* Epoch - 70 : I Increased the Epoch from 30 to 50 and then to 70 as the model kept on improving. I ran it for 90 epochs but it showed no Improvement so I stuck with 70.
-* Learning Rate - 0.001 : The Learning rate that was used in LeNet was 0.001. Making any change to this always resulted in bad accuracy so I left it as is.
-* Optimizer - Adam Optimizer : I tried ADADGRAD Optimizer as well but Adam Optimizer outperformed it in terms of accuracy of the model.
-* Mean 0 & Variance 0.1 : These were used for making the initial values of weights make a beautiful gaussian distribution.
+* Batch size - 512: I was training on AWS Instance which had sufficient memory I increased the batch size.
+* Epoch - 70: I Increased the Epoch from 30 to 50 and then to 70 as the model kept on improving. I ran it for 90 epochs but it showed no Improvement so I stuck with 70.
+* Learning Rate - 0.001: The Learning rate that was used in LeNet was 0.001. Making any change to this always resulted in bad accuracy so I left it as is.
+* Optimizer - Adam Optimizer: I tried ADADGRAD Optimizer as well but Adam Optimizer outperformed it in terms of accuracy of the model.
+* Mean 0 & Variance 0.1: These were used for making the initial values of weights make a beautiful Gaussian distribution.
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
@@ -129,22 +130,22 @@ My final model results were:
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
 
-  The First architecture i used was the LeNet without any changes. I chose it because it was a good starting off point to experiment  with hyper parameters and adding/removing layers.
+  The First architecture I used was the LeNet without any changes. I chose it because it was a good starting off point to experiment with hyper parameters and adding/removing layers.
 * What were some problems with the initial architecture?
 
-  The initial model didn't improve much when running for more than 30 epocs. It was much faster to train but the accuracy was stuck below 90%. 
+  The initial model didn't improve much when running for more than 30 epochs. It was much faster to train but the accuracy was stuck below 90%. 
 
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
+* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc.), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or under fitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
 
-  I was getting low accuracy on both traning and validation. So I had to make the model more complex but instead of adding more layers I decided to make the convolution layers deeper. The first convolution layer in my model outputes 26x26x30 whereas the first convolution layer in LeNet's output had a depth of only 6. Similaryl the second convolution bumps the depth to 60.
+  I was getting low accuracy on both training and validation. So I had to make the model more complex but instead of adding more layers I decided to make the convolution layers deeper. The first convolution layer in my model outputs 26x26x30 whereas the first convolution layer in LeNet's output had a depth of only 6. Similarly, the second convolution bumps the depth to 60.
 
 * Which parameters were tuned? How were they adjusted and why?
 
-  Almost all prarmeters were tuned. See point 3 for the reasons.
+  Almost all parameters were tuned. See point 3 for the reasons.
 
 * What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
 
-  I added dropout just after flattening the convolution layer with a keep probablity of 0.7. The idea behind this is that the second  copnvolution layer would look for features in the image like circles and squares which can be used by the fully connected layer to classify the sign.So, adding the dropout will force the network to learn to associate more features to a traffic sign and not rely on just a few.
+  I added dropout just after flattening the convolution layer with a keep probability of 0.7. The idea behind this is that the second convolution layer would look for features in the image like circles and squares which can be used by the fully connected layer to classify the sign. So, adding the dropout will force the network to learn to associate more features to a traffic sign and not rely on just a few.
  
 
 ### Test a Model on New Images
@@ -177,7 +178,7 @@ Here are the results of the prediction:
 
 The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This is much lower than the accuracy on the test set of 94.4%.
 
-It did not predict the sign "Road Narrows on Right"	correctly but if you look at the bar chart the 2nd most probable prediction for that sign was the correct one i.e "Road Narrows on Right".
+It did not predict the sign "Road Narrows on Right"	correctly but if you look at the bar chart the 2nd most probable prediction for that sign was the correct one i.e. "Road Narrows on Right".
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
